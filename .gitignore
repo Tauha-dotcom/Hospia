@@ -1,0 +1,31 @@
+# Environment files
+.env
+.env.local
+.env.production
+
+# n8n data and credentials
+n8n_data/
+*.sqlite
+*.db
+
+# Backups
+backups/
+
+# Logs
+*.log
+logs/
+
+# Node.js
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
