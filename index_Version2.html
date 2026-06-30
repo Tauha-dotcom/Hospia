@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hospia — AI Operating System for Hospitality</title>
+  <meta name="description" content="Hospia: WhatsApp-native, AI-driven guest communication and automation for independent hotels and small hospitality groups." />
+  <meta name="theme-color" content="#ffffff" />
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --surface: #fbfdff;
+      --text: #0f1720;
+      --muted: #556070;
+      --accent: #2e75b6;
+      --accent-600: #1f5f98;
+      --glass: rgba(255,255,255,0.6);
+      --radius: 12px;
+      --border: #e6eef8;
+      --shadow: 0 8px 30px rgba(16,30,50,0.08);
+      --max-width: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#f7fbff 0%,var(--surface) 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+    }
+
+    /* Container */
+    .container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:24px;
+    }
+
+    /* NAV */
+    header.site-header{
+      background:transparent;
+      padding:20px 0;
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .logo {
+      width:44px;
+      height:44px;
+      display:inline-grid;
+      place-items:center;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-600));
+      color:#fff;
+      font-weight:700;
+      box-shadow: var(--shadow);
+      font-size:18px;
+    }
+    nav .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:0.95rem;
+      border:1px solid transparent;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+      box-shadow: 0 6px 18px rgba(46,117,182,0.18);
+    }
+    .btn-ghost{
+      background:transparent;
+      color:var(--accent-600);
+      border:1px solid rgba(46,117,182,0.08);
+    }
+
+    /* HERO */
+    .hero{
+      padding:48px 0 36px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:28px;
+      align-items:center;
+    }
+    .hero-inner{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .kicker{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      background:#eef6ff;
+      color:var(--accent);
+      font-weight:700;
+      font-size:0.85rem;
+      width:fit-content;
+    }
+    h1.hero-title{
+      font-size:2.1rem;
+      line-height:1.08;
+      margin:0;
+    }
+    p.lead{
+      margin:0;
+      color:var(--muted);
+      font-size:1.05rem;
+      max-width:56ch;
+    }
+    .hero-ctas{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-top:6px;
+    }
+
+    /* Feature card on the right */
+    .hero-visual{
+      background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(245,252,255,0.6));
+      padding:18px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+    .mock-chat{
+      width:100%;
+      max-width:480px;
+      min-height:220px;
+      background:linear-gradient(180deg,#fff,#f8fcff);
+      border-radius:12px;
+      padding:14px;
+      border:1px solid #ebf6ff;
+    }
+    .message{
+      display:inline-block;
+      padding:10px 12px;
+      border-radius:10px;
+      margin-bottom:10px;
+      max-width:78%;
+      font-size:0.95rem;
+    }
+    .msg-guest{ background:#f1f7ff; color:var(--text); align-self:flex-start; }
+    .msg-agent{ background:linear-gradient(90deg,#2e75b6,#1f5f98); color:#fff; align-self:flex-end; margin-left:auto; }
+
+    /* Sections */
+    main{
+      padding:36px 0 60px;
+    }
+    .grid{
+      display:grid;
+      gap:20px;
+    }
+    .features{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+    .card{
+      background:#fff;
+      border-radius:12px;
+      padding:18px;
+      border:1px solid var(--border);
+      box-shadow:0 6px 20px rgba(16,30,50,0.04);
+    }
+    .feature-title{ font-weight:700; margin-top:10px; }
+    .feature-desc{ color:var(--muted); margin-top:8px; font-size:0.97rem; }
+
+    .how{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:center;
+    }
+    .steps{ display:flex; flex-direction:column; gap:14px; }
+    .step{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .step .num{
+      width:36px;
+      height:36px;
+      border-radius:10px;
+      background:var(--accent);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+    }
+    .step p{ margin:0; color:var(--muted); }
+
+    /* Testimonials / trust */
+    .testimonial{
+      background:linear-gradient(180deg,#fff,#fbfdff);
+      border-radius:12px;
+      padding:18px;
+      border:1px solid var(--border);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .quote{ color:var(--muted); font-size:0.98rem; line-height:1.5; }
+
+    /* Newsletter */
+    .newsletter{
+      display:flex;
+      gap:12px;
+      margin-top:8px;
+      align-items:center;
+    }
+    .newsletter input[type="email"]{
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      width:100%;
+      font-size:0.95rem;
+    }
+
+    /* Footer */
+    footer{
+      padding:28px 0;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+    }
+    footer .foot-grid{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    footer a{ color:var(--accent-600); text-decoration:none; }
+
+    /* Responsive */
+    @media (min-width:880px){
+      .hero{ grid-template-columns: 1fr 480px; gap:36px; align-items:center; }
+      h1.hero-title{ font-size:2.6rem; }
+      .features{ grid-template-columns:repeat(3,1fr); }
+    }
+    @media (max-width:879px){
+      .features{ grid-template-columns:1fr; }
+      .how{ grid-template-columns:1fr; }
+      .hero-visual{ order:2 }
+      .hero-inner{ order:1 }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#">
+        <div class="logo" aria-hidden="true">H</div>
+        <div>
+          <div style="font-weight:800">Hospia</div>
+          <div style="font-size:0.85rem;color:var(--muted);margin-top:2px">AI for hospitality</div>
+        </div>
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <div class="nav-actions">
+          <a class="btn btn-ghost" href="#features">Features</a>
+          <a class="btn btn-ghost" href="#how">How it works</a>
+          <a class="btn btn-primary" href="mailto:tauhahussainbalti@gmail.com?subject=Hospia%20demo%20request">Request demo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <span class="kicker">WhatsApp-native</span>
+        <h1 id="hero-title" class="hero-title">Automated, property-specific guest messaging on WhatsApp</h1>
+        <p class="lead">Hospia helps independent hotels and small hospitality groups respond to guest questions, manage bookings, and escalate sensitive requests — all via WhatsApp. Fast guest experiences, fewer manual tasks, and centralized conversation logs for staff.</p>
+
+        <div class="hero-ctas" role="group" aria-label="Call to action">
+          <a class="btn btn-primary" href="mailto:tauhahussainbalti@gmail.com?subject=Hospia%20demo%20request">Request a demo</a>
+          <a class="btn btn-ghost" href="#features">See features</a>
+        </div>
+
+        <div style="margin-top:14px; color:var(--muted); font-size:0.95rem">
+          No app downloads — guests message the hotel's WhatsApp number directly.
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div style="font-weight:700;margin-bottom:10px">Live example — guest conversation</div>
+        <div class="mock-chat" role="img" aria-label="Example guest chat">
+          <div class="message msg-guest">Hi — is breakfast included with my booking on July 14?</div>
+          <div class="message msg-agent">Yes — complimentary breakfast is included. Would you like vegetarian options?</div>
+          <div class="message msg-guest">Yes please. Also can we request a late checkout?</div>
+          <div class="message msg-agent">I can request late checkout for you — I’ll confirm with the front desk. Would you like me to note 2 PM?</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" style="margin-top:18px;">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;">
+        <div>
+          <span class="kicker">What we do</span>
+          <h2 style="margin-top:10px;">WhatsApp-native guest communication for hotels</h2>
+          <p style="margin-top:8px;color:var(--muted);max-width:60ch;">Hospia routes guest messages to AI and staff workflows so properties can deliver immediate, accurate responses while keeping staff in control of escalations and bookings.</p>
+        </div>
+        <div style="min-width:220px;text-align:right">
+          <a class="btn btn-primary" href="mailto:tauhahussainbalti@gmail.com?subject=Hospia%20pilot%20inquiry">Start a pilot</a>
+        </div>
+      </div>
+
+      <div class="features" aria-hidden="false">
+        <div class="card" aria-labelledby="feat-1">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="14" rx="3" stroke="#cfe9ff" stroke-width="0" fill="#eef7ff"/>
+            <path d="M7 8h10M7 12h6" stroke="#2e75b6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div id="feat-1" class="feature-title">Instant guest replies</div>
+          <div class="feature-desc">AI handles FAQs, booking checks, directions, and policy questions instantly with property-specific context.</div>
+        </div>
+
+        <div class="card" aria-labelledby="feat-2">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="8" r="3" fill="#eef7ff"/>
+            <path d="M6 18c1.5-2 4.5-3 6-3s4.5 1 6 3" stroke="#2e75b6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div id="feat-2" class="feature-title">Seamless staff handoff</div>
+          <div class="feature-desc">When requests are complex or sensitive, conversations escalate to staff with the guest context pre-filled.</div>
+        </div>
+
+        <div class="card" aria-labelledby="feat-3">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="4" fill="#eef7ff"/>
+            <path d="M8 12h8" stroke="#2e75b6" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M9 16h6" stroke="#2e75b6" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <div id="feat-3" class="feature-title">Central logs & analytics</div>
+          <div class="feature-desc">Every conversation and booking inquiry is stored and searchable for staff and managers.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" style="margin-top:36px;">
+      <h2>How it works</h2>
+      <div class="how" style="margin-top:14px;">
+        <div class="steps" aria-hidden="false">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <div style="font-weight:700">Guest messages your WhatsApp</div>
+              <p>Guests message the hotel's WhatsApp number — no app installs or new accounts required.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <div style="font-weight:700">AI replies with property context</div>
+              <p>Hospia uses property data and policies to provide accurate answers instantly.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <div style="font-weight:700">Staff handle the rest</div>
+              <p>Complex requests are routed to staff with the full conversation and suggested responses.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="testimonial" role="region" aria-label="Customer testimonial">
+            <div style="width:48px;height:48px;border-radius:10px;background:#f0f8ff;display:grid;place-items:center;font-weight:700;color:var(--accent)">JW</div>
+            <div>
+              <div style="font-weight:700">“Hospia helped us reduce incoming response time and freed our front desk to focus on guests.”</div>
+              <div class="quote" style="margin-top:8px;">We rolled out Hospia at our boutique property and saw a 40% drop in routine calls. Guests loved the instant responses and staff liked that escalations came with context.</div>
+              <div style="margin-top:8px;color:var(--muted);font-size:0.9rem;">— Manager, The Willow Hotel</div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;">
+            <a class="btn btn-ghost" href="#contact" style="margin-right:10px">Read case study</a>
+            <a class="btn btn-primary" href="mailto:tauhahussainbalti@gmail.com?subject=Hospia%20pilot%20inquiry">Start pilot</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="who" style="margin-top:36px;">
+      <span class="kicker">Who it's for</span>
+      <h2 id="who" style="margin-top:8px;">Independent hotels and small hospitality groups</h2>
+      <p style="color:var(--muted);max-width:60ch;">Hospia is built for properties that want to offer always-on guest communication without adding headcount — pilot at a single property and expand to more when you're ready.</p>
+
+      <div style="display:flex;gap:16px;align-items:center;margin-top:18px;flex-wrap:wrap;">
+        <form id="newsletter" class="newsletter" onsubmit="return subscribe(event)" aria-label="Newsletter signup">
+          <input id="email" name="email" type="email" placeholder="Your work email" required aria-label="Email address"/>
+          <button class="btn btn-primary" type="submit">Notify me</button>
+        </form>
+
+        <div style="color:var(--muted);font-size:0.92rem;">Or <a href="mailto:tauhahussainbalti@gmail.com">email us</a> to request a demo or pilot.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot-grid">
+      <div style="display:flex;flex-direction:column;">
+        <div style="font-weight:800">Hospia</div>
+        <div style="color:var(--muted);margin-top:6px;">AI Operating System for Hospitality</div>
+      </div>
+
+      <div style="text-align:right;">
+        <div>Contact: <a href="mailto:tauhahussainbalti@gmail.com">tauhahussainbalti@gmail.com</a></div>
+        <div style="margin-top:8px;color:var(--muted);font-size:0.9rem;">&copy; 2026 Hospia. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Lightweight newsletter "subscribe" handler — opens mail client with a prefilled message.
+    function subscribe(e){
+      e.preventDefault();
+      var email = document.getElementById('email').value || '';
+      var subject = encodeURIComponent('Hospia newsletter sign-up');
+      var body = encodeURIComponent('Please sign up ' + email + ' for updates about Hospia and pilot programs.');
+      location.href = 'mailto:tauhahussainbalti@gmail.com?subject=' + subject + '&body=' + body;
+      return false;
+    }
+  </script>
+</body>
+</html>
